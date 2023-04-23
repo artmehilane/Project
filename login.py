@@ -1,4 +1,4 @@
-def New_User():
+def New_User(username, password):
     data = []
     is_name_ok = False
     is_pass_ok = False
@@ -14,8 +14,8 @@ def New_User():
     while True:
         is_name_taken = False
         #Küsime kasutajalt uue konto nime ja salasõna
-        username = input("Please enter your username: ")
-        password = input("Please enter your password: ")
+        #username = input("Please enter your username: ")
+        #password = input("Please enter your password: ")
 
         #Vaatame kas nendes on ainult tähed ja numbrid
         is_name_ok = username.isalnum()
@@ -45,9 +45,7 @@ def New_User():
         f.write(new_data)
     f.close()
 
-def Log_in():
-    username = input("Enter your username: ")
-    password = input("Enter your password: ")
+def Log_in(username, password):
     user_ok = False
     data = []
 
@@ -69,5 +67,3 @@ def Log_in():
     if not user_ok:
         print("Username or password incorrect")
         Log_in()
-
-Log_in()

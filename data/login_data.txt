@@ -1,3 +1,5 @@
 terete:re
 vana:kere
 Ott:yolo
+admin:admin
+Test:xd
