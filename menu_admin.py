@@ -28,6 +28,31 @@ settings_layout = [
     [sg.Button("Create Account", size=(20,2))]
 ]
 
+# Define the data for the listbox
+data = [['John', 'Doe', '32', 'Male'],
+        ['Jane', 'Doe', '28', 'Female'],
+        ['Bob', 'Smith', '45', 'Male'],
+        ['Alice', 'Johnson', '50', 'Female'],
+        ['Dave', 'Brown', '22', 'Male']]
+
+menu_headings = ["ID", "Item", "Category", "Sub", "Price"]
+
+menu_layout = [
+    [sg.Text("MENU")],
+    [sg.Table(values=data,
+              headings=menu_headings,
+              col_widths=[30, 70, None, None, 30],
+              auto_size_columns=True,
+              justification='center',
+              alternating_row_color='lightblue',
+              key='-MENU-')],
+    [sg.Button("Out of Stock", size=(20,2)), sg.Button("Back in the menu!", size=(20,2))]
+
+]
+
+
+
+
 """
 Kui tahad uue tabi listi lisada, siis sg.Tab(tabi nimi, tabi layout)"""
 tab_group = [
@@ -35,7 +60,9 @@ tab_group = [
                     [[
                         sg.Text("", text_color="Black", key="logged_in_as"),
                         sg.Tab("Home", home_layout, background_color="teal"),
-                        sg.Tab("Settings", settings_layout)]],
+                        sg.Tab("Settings", settings_layout),
+                        sg.Tab("Menu", menu_layout)]],
+
                         tab_location="centertop",
                         title_color="White",
                         selected_title_color="White",
@@ -62,7 +89,7 @@ layouts = [
 
 
 # create the menu window
-window = sg.Window("Menu", layouts, size=(400, 300), element_justification="center")
+window = sg.Window("Menu", layouts, size=(450, 500), element_justification="center")
 
 # create a loop to handle events
 while True:
@@ -90,14 +117,16 @@ while True:
         new_password = values["new_password"]
         password_check = values["password_check"]
 
-        if new_password == password_check:
+        if new_password == password_check and len(new_password) > 4:
             try:
                 login.New_User(new_username, new_password)
                 window["new_account_message"].update("New user added!")
             except:
                 window["new_account_message"].update("Username already in use")
-        else:
+        elif new_password != password_check:
             window["new_account_message"].update("Passwords dont match!")
+        else:
+            window["new_account_message"].update("Password must be atleast 5 characters")
 
 
 # close the window
