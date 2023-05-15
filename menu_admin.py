@@ -166,6 +166,3 @@ while True:
 
 # close the window
 window.close()
-
-
-

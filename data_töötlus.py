@@ -52,6 +52,21 @@ def new_item(name, cat, subcat, price):
     df.to_excel("data/menu.xlsx")
     return("New item successfully added")
 
+
 path = "data/menu.xls"
 
 read_menu(path)
+
+path = "data/menu.xlsx"
+
+def fe_menu():
+    data = read_menu("data/menu.xlsx")
+    processed_data = []
+    for item in data:
+        if item[5] == True:
+            item = [item[1], item[3], item[4]]
+            processed_data.append(item)
+    return processed_data
+
+print(fe_menu())
+
