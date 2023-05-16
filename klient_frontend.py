@@ -38,7 +38,7 @@ welcome_layout = [
     [sg.VerticalSeparator(pad=(0, 30))],
     [sg.Text("Kaks Paskalit", font=(font, 48), justification="center", pad=((55, 0), (0, 0)))],
     [sg.VerticalSeparator(pad=(0, 10))],
-    [sg.Image("photos/logoo.png", size=(200, 200), pad=((95, 0), (0, 0)))],
+    [sg.Image("photos/logo.png", size=(200, 200), pad=((95, 0), (0, 0)))],
     [sg.VerticalSeparator(pad=(0, 20))],
     [sg.Text("Tere tulemast!", font=(font, 38), justification="center", pad=((75, 0), (0, 0)))],
     [sg.VerticalSeparator(pad=(0, 50))],
