@@ -1,5 +1,7 @@
 import PySimpleGUI as sg
 
+#4 ekraan
+
 # Set the theme for the screen
 sg.theme("Green")
 
