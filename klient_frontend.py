@@ -42,21 +42,20 @@ welcome_layout = [
     [sg.VerticalSeparator(pad=(0, 20))],
     [sg.Text("Tere tulemast!", font=(font, 38), justification="center", pad=((75, 0), (0, 0)))],
     [sg.VerticalSeparator(pad=(0, 50))],
-    [sg.Button("Menüü", key="-TO_MENU-", size=(14, 1), font=(font, 22), button_color=("black", "green"), pad=((106, 0), (0, 0)))]
+    [sg.Button("Menüü", key="-TO_MENU-", size=(20, 1), font=(font, 24), button_color=("black", "green"), pad=((62, 0), (0, 0)))]
 ]
 
 
 
 menu_layout = [
 
-    [sg.Text("Kaks Paskalit")],
-    [sg.Button("Appetizer", key="-APPETIZER-"), sg.Button("Main Course", key="-MAIN-"),
-     sg.Button("Dessert", key="-DESSERT-"), sg.Button("Drinks", key="-DRINKS-")],
-    [sg.Button("All Menu", key="-ALL-")],
-    [sg.Table(values=data, headings=["Item", "Category", "Price"], key="-TABLE-", enable_events=True)],
-    [sg.Input(key="-FILTER-", enable_events=True)],
-    [sg.Image("photos/logo.png",key="-IMAGE-", size=(200,200), pad=((150,0),(20,20)))],
-    [sg.Spin(["1", "2", "3", "4", "5"], key="-QUANTITY-"), sg.Button("Add", key="-ADD-")]
+    [sg.Text("Kaks Paskalit", font=(font, 24), pad = (105,4 ))],
+    [sg.Button("Appetizer", key="-APPETIZER-", size=(13,1)), sg.Button("Main Course", key="-MAIN-", size=(13,1)),
+     sg.Button("Dessert", key="-DESSERT-", size=(13,1)), sg.Button("Drinks", key="-DRINKS-", size=(13,1))],
+    [sg.Button("All Menu", key="-ALL-",pad = (116,12 ) ,size=(16,1))],
+    [sg.Table(values=data, headings=["Item", "Category", "Price"], key="-TABLE-", enable_events=True ,font=(font, 14), size=(40,14), justification = "left",pad = (4,8) )],
+    [sg.Image("photos/logo.png",key="-IMAGE-", size=(200,200), pad=((72,0),(20,20)))],
+    [sg.Spin(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], key="-QUANTITY-",font=(font, 18), size=(18,2)), sg.Button("Add", key="-ADD-", size=(14,1))]
 
 ]
 
@@ -67,14 +66,14 @@ end_layout = [
 
 
 order_layout = [
-    [sg.Text("Your Order")],
+    [sg.Text("Your Order", font =(font,24))],
     [sg.Table(values=order,
-              headings=["Item","Quantity", "Cost" , "Total"],
+              headings=["Item","Quantity", "Cost" , "Total"],font= (font,14), justification= "center", size=(480,30), pad = (4,8) ,
               key="-ORDER_LIST-",
               enable_events=True)],
-    [sg.Button("+", key="-MORE-"), sg.Button("-", key="-LESS-"), sg.Button("Remove", key="-REMOVE-")],
+    [sg.Button("+", key="-MORE-", font=(font, 12), size=(13,1)), sg.Button("-", key="-LESS-",font=(font, 12), size=(13,1)), sg.Button("Remove", key="-REMOVE-", font=(font, 12), size=(13,1))],
     [sg.Text("", key="-TOTAL_SUM-", visible=False)],
-    [sg.Button("Send Order", key="-SEND_ORDER-")]
+    [sg.Button("Send Order", key="-SEND_ORDER-", font=(font, 12), size=(16,1))]
 
 ]
 
@@ -82,7 +81,7 @@ order_layout = [
 
 tab_group = [[sg.TabGroup(
                     [[
-                        sg.Tab("MENU", menu_layout, background_color="teal"),
+                        sg.Tab("MENU", menu_layout, background_color="DarkOliveGreen4"),
                         sg.Tab("Your Order", order_layout, key="-ORDER_TAB-")]],
                         tab_location="centertop",
                         title_color="White",
@@ -181,7 +180,7 @@ while True:
             #Vaatame kas tooteid on nüüd 0, kui on küsime kas tahadki ja kui jah siis eemaldame toote
             for item in order:
                 if item[1] == 0:
-                    response = sg.popup_yes_no("Are you sure you want to remove this item?")
+                    response = sg.popup_yes_no("Are you sure you want to remove this item?", font=(font,14))
                     if response == "Yes":
                         order.pop(order_row)
                     else:
@@ -204,7 +203,7 @@ while True:
     #Orderi saatmine ja arve tegemine
     elif event == "-SEND_ORDER-":
         if len(order) > 0:
-            response = sg.popup_yes_no("Are you sure you got everything?")
+            response = sg.popup_yes_no("Are you sure you got everything?", font=(font, 14))
             if response == "Yes":
                 window["-MENU-"].update(visible=False)
                 window["-DONE-"].update(visible=True)
@@ -243,7 +242,7 @@ while True:
         total_sum += item[3]
     window["-ORDER_TAB-"].update(f"Your Order ({items_in_basket})")
     if len(order) >= 0:
-        window["-TOTAL_SUM-"].update(f"Your Total is: {total_sum} $")
+        window["-TOTAL_SUM-"].update(f"Your Total is: {total_sum} $", font=(font, 14))
         window["-TOTAL_SUM-"].update(visible=True)
     else:
         window["-TOTAL_SUM-"].update(visible=False)
