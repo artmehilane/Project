@@ -53,7 +53,7 @@ menu_layout = [
     [sg.Button("Appetizer", key="-APPETIZER-", size=(13,1)), sg.Button("Main Course", key="-MAIN-", size=(13,1)),
      sg.Button("Dessert", key="-DESSERT-", size=(13,1)), sg.Button("Drinks", key="-DRINKS-", size=(13,1))],
     [sg.Button("All Menu", key="-ALL-",pad = (116,12 ) ,size=(16,1))],
-    [sg.Table(values=data, headings=["Item", "Category", "Price"], key="-TABLE-", enable_events=True ,font=(font, 14), size=(40,14), justification = "left",pad = (4,8) )],
+    [sg.Table(values=data, headings=["Item", "Category", "Price"], key="-TABLE-", enable_events=True ,font=(font, 14),size=(10,14),justification = "left",pad = (4,8) )],
     [sg.Image("photos/logo.png",key="-IMAGE-", size=(200,200), pad=((72,0),(20,20)))],
     [sg.Spin(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], key="-QUANTITY-",font=(font, 18), size=(18,2)), sg.Button("Add", key="-ADD-", size=(14,1))]
 
@@ -66,23 +66,30 @@ end_layout = [
 
 
 order_layout = [
-    [sg.Text("Your Order", font =(font,24))],
+    [sg.Text("Your Order", font=(font, 24))],
     [sg.Table(values=order,
-              headings=["Item","Quantity", "Cost" , "Total"],font= (font,14), justification= "center", size=(480,30), pad = (4,8) ,
+              headings=["Item", "Quantity", "Cost", "Total"],
+              font=(font, 14),
+              justification="center",
+              size=(1000, 30),
+              pad=(4, 8),
               key="-ORDER_LIST-",
-              enable_events=True)],
-    [sg.Button("+", key="-MORE-", font=(font, 12), size=(13,1)), sg.Button("-", key="-LESS-",font=(font, 12), size=(13,1)), sg.Button("Remove", key="-REMOVE-", font=(font, 12), size=(13,1))],
+              enable_events=True,
+              col_widths=[100, 100, 100, 100],
+              expand_x=True)],  # Set expand_x=True to make the table width span the screen
+    [sg.Button("+", key="-MORE-", font=(font, 12), size=(13, 1)),
+     sg.Button("-", key="-LESS-", font=(font, 12), size=(13, 1)),
+     sg.Button("Remove", key="-REMOVE-", font=(font, 12), size=(13, 1))],
     [sg.Text("", key="-TOTAL_SUM-", visible=False)],
-    [sg.Button("Send Order", key="-SEND_ORDER-", font=(font, 12), size=(16,1))]
-
+    [sg.Button("Send Order", key="-SEND_ORDER-", font=(font, 12), size=(16, 1))]
 ]
 
 
 
 tab_group = [[sg.TabGroup(
                     [[
-                        sg.Tab("MENU", menu_layout, background_color="DarkOliveGreen4"),
-                        sg.Tab("Your Order", order_layout, key="-ORDER_TAB-")]],
+                        sg.Tab("MENU", menu_layout, background_color="DarkOliveGreen4", font=(font,18)),
+                        sg.Tab("Your Order", order_layout, key="-ORDER_TAB-", font=(font,18))]],
                         tab_location="centertop",
                         title_color="White",
                         selected_title_color="White",
@@ -203,7 +210,7 @@ while True:
     #Orderi saatmine ja arve tegemine
     elif event == "-SEND_ORDER-":
         if len(order) > 0:
-            response = sg.popup_yes_no("Are you sure you got everything?", font=(font, 14))
+            response = sg.popup_yes_no("Are you sure you got everything?", font=(font, 18))
             if response == "Yes":
                 window["-MENU-"].update(visible=False)
                 window["-DONE-"].update(visible=True)
@@ -242,7 +249,8 @@ while True:
         total_sum += item[3]
     window["-ORDER_TAB-"].update(f"Your Order ({items_in_basket})")
     if len(order) >= 0:
-        window["-TOTAL_SUM-"].update(f"Your Total is: {total_sum} $", font=(font, 14))
+        window["-TOTAL_SUM-"].update(f"Your Total is: {total_sum} $", font=(font, 18))
+        round(total_sum,2)
         window["-TOTAL_SUM-"].update(visible=True)
     else:
         window["-TOTAL_SUM-"].update(visible=False)
