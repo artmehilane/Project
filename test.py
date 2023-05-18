@@ -1,15 +1,17 @@
-import os
+import pandas as pd
 
-# Get the list of all files and directories
-path = "arved"
-dir_list = os.listdir(path)
+df = pd.read_excel('data/arved.xlsx')
+data = df.values.tolist()
 
-print("Files and directories in '", path, "' :")
+# List of values to filter
+filter_values = [2004]
 
-# prints all files
-print(dir_list)
-print(len(dir_list))
+# Filter the DataFrame based on the first element of each row
+filtered_df = df[df['---'].isin(filter_values)]
+filtered_df = filtered_df.values.tolist()
 
+# Print the filtered rows
+print(filtered_df)
 
 
 

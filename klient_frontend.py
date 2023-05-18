@@ -235,6 +235,7 @@ while True:
                     file.write("-----------------------------------------\n")
                     file.write(f"TOTAL: {total_sum}\n\n")
                     file.write("          Kaks Paskalit\n")
+                    dt.order_to_excel(order, order_ID)
 
         else:
             sg.popup("You need to have items in order!")
@@ -254,19 +255,6 @@ while True:
         window["-TOTAL_SUM-"].update(visible=True)
     else:
         window["-TOTAL_SUM-"].update(visible=False)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # Close the window
