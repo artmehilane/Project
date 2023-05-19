@@ -23,6 +23,7 @@ login_layout = [
     [sg.Text("Enter Password:"), sg.Input(key="password", password_char="*")],
     [sg.Text("", key="login_error")],
     [sg.Button("Log in", size=(20, 2))],
+    [sg.Text("----------------------------------------------------------------------------------------------------------------------------------------------")]
 ]
 
 home_layout = [
